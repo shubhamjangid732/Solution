@@ -1,0 +1,46 @@
+function solution(D) {
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayValues = new Array(7).fill(0);
+  const result = {};
+
+  // Iterate 
+  Object.entries(D).forEach(([dateStr, value]) => {
+    const date = new Date(dateStr);
+    const dayOfWeek = daysOfWeek[date.getDay()];
+
+    // Add value 
+    dayValues[date.getDay()] += value;
+  });
+
+  for (let i = 0; i < 7; i++) {
+    const dayOfWeek = daysOfWeek[i];
+    const value = dayValues[i];
+
+    if (value !== 0) {
+      // Day exists : Use value
+      result[dayOfWeek] = value;
+    } else {
+      // Day is missing: Calculate mean
+      let prevValue = 0;
+      let nextValue = 0;
+      let j = i - 1;
+      while (j >= 0 && prevValue === 0) {
+        prevValue = dayValues[j];
+        j--;
+      }
+      j = i + 1;
+      while (j < 7 && nextValue === 0) {
+        nextValue = dayValues[j];
+        j++;
+      }
+      result[dayOfWeek + '*'] = Math.round((prevValue + nextValue) / 2);
+    }
+  }
+
+  return result;
+}
+
+
+
+// Time complexity of O(n), where n is the number of key-value pairs in the input dictionary.
+// Space complexity is O(1)
