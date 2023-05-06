@@ -42,5 +42,5 @@ function solution(D) {
 
 
 
-// Time complexity of O(n), where n is the number of key-value pairs in the input dictionary.
+// Time complexity of O(n), where n is the number of key-value pairs in the input dictionary
 // Space complexity is O(1)
